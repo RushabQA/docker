@@ -7,9 +7,19 @@ services:
     - target: 5000
       published: 5000
       protocol: tcp
+    depends_on:
+            - db 
   
   db:
     build: ./db
+    environment:
+            MYSQL_USER: admin
+            MYSQL_PASSWORD: ${PASSWORD}
+            MYSQL_DATABASE: flask-db
+    ports: 
+            - target: 3306
+              published: 3306
+              protocol: tcp
   
   nginx:
     image: nginx:latest

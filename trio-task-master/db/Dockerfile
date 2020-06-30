@@ -2,9 +2,10 @@
 FROM mysql:latest
 
 # Add a database
-COPY CreateTable.sql /docker-entrypoint-initdb.d/
+ENV MYSQL_DATABSE=flask.db
 
-EXPOSE 3306
+COPY ./CreateTable.sql docker-entrypoint-initdb.d/
+
 
 # Add the content of the .sql file to your image
 # All scripts in docker-entrypoint-initdb.d/ are automatically

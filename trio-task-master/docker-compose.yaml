@@ -8,14 +8,14 @@ services:
       published: 5000
       protocol: tcp
     depends_on:
-            - db 
+            - mysql
+    environment: 
+            DATABASE_URI: ${DATABASE_URI} 
   
-  db:
+  mysql:
     build: ./db
     environment:
-            MYSQL_USER: admin
-            MYSQL_PASSWORD: ${PASSWORD}
-            MYSQL_DATABASE: flask-db
+            MYSQL_ROOT_PASSWROD: ${DB_PASSWORD}
     ports: 
             - target: 3306
               published: 3306
@@ -31,3 +31,5 @@ services:
     - type: bind
       source: ./nginx/nginx.conf
       target: /etc/nginx/nginx.conf
+    depends_on:
+            - flask-app

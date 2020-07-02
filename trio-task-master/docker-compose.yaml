@@ -2,6 +2,7 @@ version: '3.7'
 
 services:
   flask-app:
+    image: rushabqa/trio-task-flask-app 
     build: ./flask-app
     ports:
     - target: 5000
@@ -10,9 +11,12 @@ services:
     depends_on:
             - mysql
     environment: 
-            DATABASE_URI: ${DATABASE_URI} 
+            DATABASE_URI: ${DATABASE_URI}
+    deploy:
+            replicas: 2
   
   mysql:
+    image: rushabqa/trio-task-db
     build: ./db
     environment:
             MYSQL_ROOT_PASSWROD: ${DB_PASSWORD}
